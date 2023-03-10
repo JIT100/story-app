@@ -1,22 +1,30 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Article,Category
+from .forms import StoryForm
+from django.views.generic.edit import FormView
+
 # Create your views here.
-def article_list(request,*args,**kwargs):
-    articles=Article.objects.order_by('-published_date')[:3]
+def story_list(request,*args,**kwargs):
+    stories=Article.objects.order_by('-published_date')[:3]
     content={
-        'articles':articles
+        'stories':stories
     }
-    return render(request,'article_list1.html',content)
+    return render(request,'story_list.html',content)
 
-def article_detail(request,id):
-    article=get_object_or_404(Article,id=id)
+def story_detail(request,id):
+    story=get_object_or_404(Article,id=id)
     content={
-        'article':article
+        'story':story
     }
-    return render(request,'article_detail.html',content)
+    return render(request,'story_detail.html',content)
 
-def articles_by_category(request, category_slug):
+def stories_by_category(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     articles = Article.objects.filter(category=category)
     context = {'category': category, 'articles': articles}
-    return render(request, 'articles/articles_by_category.html', context)
+    return render(request, 'story/story_category.html', context)
+
+class storyFormView(FormView):
+    form_class=StoryForm
+    template_name='story_create.html'
+    success_url ="/thanks/"
