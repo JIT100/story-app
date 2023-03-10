@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %} 
+<!-- Story Detail css -->
+<link rel="stylesheet" href="{% static 'css/story_list_style.css' %}">
+{% endblock%}
+{% block content %}
+	<section class="container">
+		<article class="article-detail">
+			<img class="article-image" src="{{ story.image.url }}" alt="{{ story.title }}">
+			<h1 class="article-title">{{ story.title }}</h1>
+			<div class="article-meta">
+				<span class="article-author">By {{ story.author }}</span>
+				<span class="article-date">Posted on {{ story.published_date|date:"F j, Y" }}</span>
+                <span class="article-lang">Posted on {{ story.language }}</span>
+				<span class="article-category">In {{ story.category }}</span>
+				<!-- <span class="article-tags">Tags:
+					{% for tag in article.tags.all %}
+						<a href="{% url 'articles_by_tag' tag.slug %}">{{ tag }}</a>
+						{% if not forloop.last %}, {% endif %}
+					{% endfor %}
+				</span> -->
+			</div>
+			<div class="article-body">
+				{{ article.content|safe }}
+			</div>
+		</article>
+	</section>
+{% endblock %}

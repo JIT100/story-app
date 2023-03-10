@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block tittle %} StoryBoard {% endblock %}
+{% block css %} <!-- Story list css --> <link rel="stylesheet" href="{% static 'css/story_list_style.css' %}"> {% endblock %}
+{% load static %}
+{% block content %}
+<section class="dark">
+	<div class="container py-4">
+		<h1 class="h1 text-center" id="pageHeaderTitle" style="color:white;margin:5rem;">Story Board</h1>
+        {% for story in stories %}
+		<article class="postcard dark">
+			<a class="postcard__img_link" href="#">
+				<img class="postcard__img" src="{{ story.image.url }}" alt="{{ story.title }}" />
+			</a>
+			<div class="postcard__text">
+				<h1 class="postcard__title blue"><a href="#">{{ story.title }}</a></h1>
+				<div class="postcard__subtitle small">
+					<time>
+						<i class="fas fa-calendar-alt mr-2"></i>{{ story.published_date}}
+					</time>
+				</div>
+				<div class="postcard__bar"></div>
+				<div class="postcard__preview-txt" >{{ story.content|truncatechars_html:300 }}</div>
+				<ul class="postcard__tagbox">
+					<li class="tag__item"><i class="fas fa-tag mr-2"></i>{{ story.category}}</li>
+					<li class="tag__item"><i class="fas fa-clock mr-2"></i>{{ story.language}}</li>
+					<li class="tag__item play blue">
+						<a href="#"><i class="fas fa-play mr-2"></i>{{ story.author}}</a>
+					</li>
+                    <!-- <button type="button" class="btn btn-outline-primary btn-rounded" data-mdb-ripple-color="dark">Primary</button> -->
+                    <a href="{% url 'story_detail' story.id %}" class="tag__item btn btn-outline-success rounded-pill">Read More</a>
+				</ul>
+			</div>
+		</article>
+        {% endfor %}
+	</div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+	// Random background color for story cards
+    $( function (){
+        $( ".postcard" ).each( function (){
+            var rng = Math.round(Math.random()*3);
+            var rndmClass = [ 'red', 'green', 'yellow', 'blue' ];
+    
+            $(this).addClass( rndmClass[rng]);
+        });
+    });
+</script>
+
+{% endblock %}
+
+<!-- <section class="light">
+
+</section> -->
