@@ -2,7 +2,7 @@
 {% load static %}
 {% block css %} 
 <!-- Story Detail css -->
-<link rel="stylesheet" href="{% static 'css/story_list_style.css' %}">
+<link rel="stylesheet" href="{% static 'css/story_detail_style.css' %}">
 {% endblock%}
 {% block content %}
 	<section class="container">
@@ -22,7 +22,7 @@
 				</span> -->
 			</div>
 			<div class="article-body">
-				{{ article.content|safe }}
+				{{ story.content|safe }}
 			</div>
 		</article>
 	</section>
