@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/story_create_style.css' %}"> {% endblock %}
 {% block content %}
-
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
+<section class="dark">
+    <div class="container py-4">
+        <div class="story-form">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
